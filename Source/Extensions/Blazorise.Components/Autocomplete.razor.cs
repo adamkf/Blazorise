@@ -133,9 +133,14 @@ namespace Blazorise.Components
         /// <returns>Returns awaitable task</returns>
         protected async Task OnTextBlurHandler( FocusEventArgs eventArgs )
         {
-            // Give enought time for other events to do their stuff before closing
+            // Give enough time for other events to do their stuff before closing
             // the dropdown.
             await Task.Delay( 100 );
+
+            if (EqualityComparer<TValue>.Default.Equals(SelectedValue, default(TValue)) && SelectedText.Length > 0 )
+            {
+                await NotFound.InvokeAsync( SelectedText );
+            }
 
             TextFocused = false;
         }
@@ -375,6 +380,11 @@ namespace Blazorise.Components
         /// Occurs on every search text change.
         /// </summary>
         [Parameter] public EventCallback<string> SearchChanged { get; set; }
+
+        /// <summary>
+        /// Occurs on every search text change.
+        /// </summary>
+        [Parameter] public EventCallback<string> NotFound { get; set; }
 
         /// <summary>
         /// Custom classname for dropdown element.
