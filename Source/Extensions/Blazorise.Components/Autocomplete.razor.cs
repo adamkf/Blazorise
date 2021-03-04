@@ -139,7 +139,7 @@ namespace Blazorise.Components
 
             if (EqualityComparer<TValue>.Default.Equals(SelectedValue, default(TValue)) && SelectedText.Length > 0 )
             {
-                await NotFound.InvokeAsync( SelectedText );
+                await ValueNotFound.InvokeAsync( SelectedText );
             }
 
             TextFocused = false;
@@ -382,9 +382,9 @@ namespace Blazorise.Components
         [Parameter] public EventCallback<string> SearchChanged { get; set; }
 
         /// <summary>
-        /// Occurs on every search text change.
+        /// Occurs on textbox blur, if no value has been selected or found
         /// </summary>
-        [Parameter] public EventCallback<string> NotFound { get; set; }
+        [Parameter] public EventCallback<string> ValueNotFound { get; set; }
 
         /// <summary>
         /// Custom classname for dropdown element.
